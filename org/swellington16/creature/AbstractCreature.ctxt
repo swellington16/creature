@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.params=
+comment0.target=AbstractCreature()
+comment1.params=
+comment1.target=void\ feed()
+comment2.params=
+comment2.target=void\ starve()
+comment3.params=
+comment3.target=void\ grow()
+comment4.params=
+comment4.target=void\ excrete()
+comment5.params=
+comment5.target=void\ speak()
+numComments=6
