@@ -17,3 +17,6 @@ of how much it's starving, is reset to 0.
 
 Each time the creature does not read any text, its feed value increments.  When the feed value equals its death value, the
 creature "dies of starvation", and its thread halts.
+
+In this project's current version, the creature is automatically fed by the fillTray() method call, and if that line
+is commented out or removed, the creature will starve if you run the main method.  
