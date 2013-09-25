@@ -15,6 +15,7 @@ public class Creature extends AbstractCreature implements Runnable
     public Creature()
     {
         this.name = "TEST_CREATURE";
+        this.tired_val = 0;
         this.feed_val = 0;
         this.grow_val = 0;
         this.isDead = false;
@@ -33,6 +34,11 @@ public class Creature extends AbstractCreature implements Runnable
     public int getGrowVal()
     {
         return grow_val;
+    }
+    
+    public int getTiredVal()
+    {
+        return tired_val;
     }
     
     public boolean hasDied()
@@ -137,6 +143,7 @@ public class Creature extends AbstractCreature implements Runnable
 
     public void move()
     {
+        this.tired_val += 1;
         this.run();
     }
 
@@ -189,9 +196,28 @@ public class Creature extends AbstractCreature implements Runnable
                 this.creature.feed();
                 if(!(this.creature.isDead))
                 {
+                    if(this.creature.getTiredVal() == this.creature.TIRED_VAL)
+                    {
+                        int naptime = 5000; //5 second nap
+                        System.out.println("The creature is sleeping...");
+                        this.creature.rest(naptime);
+                    }
                     this.creature.move();
                 }
             }
+        }
+    }
+    
+    public void rest(int time)
+    {
+        try
+        {
+            Thread.sleep(time);
+            this.tired_val = 0;
+        }
+        catch(InterruptedException ie)
+        {
+            System.out.println("Error with creature sleeping: "+ie.getMessage());
         }
     }
 
