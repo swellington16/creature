@@ -16,6 +16,7 @@ public class Creature extends AbstractCreature implements Runnable
     public Creature()
     {
         this.name = "TEST_CREATURE";
+        this.belly = "";
         this.tired_val = 0;
         this.feed_val = 0;
         this.grow_val = 0;
@@ -83,11 +84,13 @@ public class Creature extends AbstractCreature implements Runnable
         {
             if(!(food.equals("")))
             {
+                int len = food.length() - 1;
+                this.belly = this.belly + food.substring(0,len-1);
                 this.mouth = new BufferedWriter(new FileWriter(filename));
                 this.mouth.write(""); //feed
                 this.mouth.close(); //stop feeding
                 this.feed_val = 0; //reset feed value
-                this.excrete();
+                this.excrete(food.substring(len));
                 this.grow(); 
             }
             else
@@ -127,22 +130,13 @@ public class Creature extends AbstractCreature implements Runnable
         }
     }
 
-    public void excrete()
+    public void excrete(String stuff)
     {
-        String filename = "waste/dump"+this.grow_val+".txt";
+        String filename = "waste.txt";
         try
         {
-            Random rand = new Random();
-            int rand_num = rand.nextInt(2);
-            BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
-            if(rand_num == 0)
-            {
-                writer.write("creature faeces");
-            }
-            else
-            {
-                writer.write("creature urine");
-            }
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filename,true));
+            writer.write(stuff);
             writer.close();
         }
         catch(IOException ex)
