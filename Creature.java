@@ -1,5 +1,3 @@
-package org.swellington16.creature;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.BufferedWriter;
@@ -202,6 +200,7 @@ public class Creature extends AbstractCreature implements Runnable
                 {
                     if(this.creature.getTiredVal() == this.creature.TIRED_VAL)
                     {
+                        System.out.println("[NEED] The creature needs to sleep...");
                         int naptime = 5000; //5 second nap
                         System.out.println("[OCCURRENCE] The creature is sleeping...");
                         this.creature.rest(naptime);

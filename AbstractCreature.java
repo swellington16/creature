@@ -1,5 +1,3 @@
-package org.swellington16.creature;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.BufferedWriter;
