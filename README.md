@@ -16,7 +16,10 @@ in the "waste" folder. Each of these text files will have "creature faeces" as i
 feeds successfully, its "feed value", the value that keeps track of how much it's starving, is reset to 0.
 
 Each time the creature does not read any text, its feed value increments.  When the feed value equals its death value, the
-creature "dies of starvation", and its thread halts.
+creature "dies of starvation", and its thread halts. Furthermore when the creature moves a certain number of times, its 
+thread sleeps (through the rest() method) for X seconds, and the creature's "tired value" (which increments each time
+the creature "moves", and is compared with a constant of the same name to determine if the creature should sleep) is
+reset to 0.
 
 In this project's current version, the creature is automatically fed by the fillTray() method call, and if that line
 is commented out or removed, the creature will starve if you run the main method.  
