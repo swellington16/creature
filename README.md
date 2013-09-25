@@ -12,8 +12,8 @@ The creature "moves" by having a timer run.  When the timer runs out, the creatu
 foodtray file.  If it reads the file and finds text, it will overwrite the text and "move again", and this is done in
 a repetitive cycle until the creature's "grow value" becomes equal to its constant "death value", at which point it "dies",
 and the creature's thread stops running. Also, each time the creature feeds, it "excretes" by creating small text files
-in the "waste" folder. Finally, each time the creature feeds successfully, its "feed value", the value that keeps track
-of how much it's starving, is reset to 0.
+in the "waste" folder. Each of these text files will have "creature faeces" as its text.  Finally, each time the creature 
+feeds successfully, its "feed value", the value that keeps track of how much it's starving, is reset to 0.
 
 Each time the creature does not read any text, its feed value increments.  When the feed value equals its death value, the
 creature "dies of starvation", and its thread halts.
