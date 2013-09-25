@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.Scanner;
+import java.util.Random;
 
 public class Creature extends AbstractCreature implements Runnable
 {
@@ -52,8 +53,8 @@ public class Creature extends AbstractCreature implements Runnable
         if(feed_val == STARVE_VAL)
         {
             this.isDead = true;
-            System.out.println("The creature is dead.");
-            System.out.println("Cause of death: Starvation");
+            System.out.println("[DEATH] The creature is dead.");
+            System.out.println("[DEATH] Cause of death: Starvation");
         }
     }
 
@@ -75,7 +76,7 @@ public class Creature extends AbstractCreature implements Runnable
         }
         catch(IOException e)
         {
-            System.out.println("Food tray cannot be opened/found for reading...");
+            System.out.println("[ERR] Food tray cannot be opened/found for reading...");
         }
 
         try
@@ -96,7 +97,7 @@ public class Creature extends AbstractCreature implements Runnable
         }
         catch(IOException e1)
         {
-            System.out.println("Food tray cannot be opened/found for writing...");
+            System.out.println("[ERR] Food tray cannot be opened/found for writing...");
         }   
     }
 
@@ -106,23 +107,23 @@ public class Creature extends AbstractCreature implements Runnable
         if(grow_val == TEETH_VAL)
         {
             this.hasTeeth = true;
-            System.out.println("The creature now has teeth...");
+            System.out.println("[DEV] The creature now has teeth...");
         }
         if(grow_val == CLAWS_VAL)
         {
             this.hasClaws = true;
-            System.out.println("The creature now has claws...");
+            System.out.println("[DEV] The creature now has claws...");
         }
         if(grow_val == TONGUE_VAL)
         {
             this.hasTongue = true;
-            System.out.println("The creature now has a tongue...");
+            System.out.println("[DEV] The creature now has a tongue...");
         }
         if(grow_val == DEATH_VAL)
         {
             this.isDead = true;
-            System.out.println("The creature is dead.");
-            System.out.println("Cause of death: Natural growth");
+            System.out.println("[DEATH] The creature is dead.");
+            System.out.println("[DEATH] Cause of death: Natural growth");
         }
     }
 
@@ -131,13 +132,22 @@ public class Creature extends AbstractCreature implements Runnable
         String filename = "waste/dump"+this.grow_val+".txt";
         try
         {
+            Random rand = new Random();
+            int rand_num = rand.nextInt(2);
             BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
-            writer.write("creature faeces");
+            if(rand_num == 0)
+            {
+                writer.write("creature faeces");
+            }
+            else
+            {
+                writer.write("creature urine");
+            }
             writer.close();
         }
         catch(IOException ex)
         {
-            System.out.println("Creature cannot take a dump...");
+            System.out.println("[ERR] Creature cannot take a dump...");
         }
     }
 
@@ -165,7 +175,7 @@ public class Creature extends AbstractCreature implements Runnable
         {
             public void run()
             {
-                System.out.println("The creature needs to feed...");
+                System.out.println("[NEED] The creature needs to feed...");
                 timer.cancel();
                 promptFeeding();
             }
@@ -179,11 +189,11 @@ public class Creature extends AbstractCreature implements Runnable
                 BufferedWriter filler = new BufferedWriter(new FileWriter("food.foodtray"));
                 filler.write("dghfskfsgfj");
                 filler.close();
-                System.out.println("Food tray is filled...");
+                System.out.println("[MAINTENANCE] Food tray is filled...");
             }
             catch(IOException ef)
             {
-                System.out.println("The food tray cannot be filled...");
+                System.out.println("[MAINTENANCE] The food tray cannot be filled...");
             }
         }
         
@@ -199,7 +209,7 @@ public class Creature extends AbstractCreature implements Runnable
                     if(this.creature.getTiredVal() == this.creature.TIRED_VAL)
                     {
                         int naptime = 5000; //5 second nap
-                        System.out.println("The creature is sleeping...");
+                        System.out.println("[OCCURRENCE] The creature is sleeping...");
                         this.creature.rest(naptime);
                     }
                     this.creature.move();
@@ -217,7 +227,7 @@ public class Creature extends AbstractCreature implements Runnable
         }
         catch(InterruptedException ie)
         {
-            System.out.println("Error with creature sleeping: "+ie.getMessage());
+            System.out.println("[ERR] Error with creature sleeping: "+ie.getMessage());
         }
     }
 
@@ -225,7 +235,7 @@ public class Creature extends AbstractCreature implements Runnable
     public void run()
     {
         new Movement(this);
-        System.out.println("The creature is moving...");
+        System.out.println("[OCCURRENCE] The creature is moving...");
     }
 
     public static void main()
