@@ -1,2 +1,19 @@
 creature
 ========
+
+This is an extremly simple simulation of a living creature. 
+
+The creature, represented by the Creature class, will "feed" by "consuming" (overwriting) the text it sniffs out
+in the file, food.foodtray.  If this file has no text, the creature will starve, and each time the creature starves
+as it tries to find food in the file, it will eventually die if it starves too often.  Additionally, each time the 
+creature feeds, it "grows", and when it "grows" enough, it will die anyway, indicating natural death.
+
+The creature "moves" by having a timer run.  When the timer runs out, the creature needs to feed, and so it reads the 
+foodtray file.  If it reads the file and finds text, it will overwrite the text and "move again", and this is done in
+a repetitive cycle until the creature's "grow value" becomes equal to its constant "death value", at which point it "dies",
+and the creature's thread stops running. Also, each time the creature feeds, it "excretes" by creating small text files
+in the "waste" folder. Finally, each time the creature feeds successfully, its "feed value", the value that keeps track
+of how much it's starving, is reset to 0.
+
+Each time the creature does not read any text, its feed value increments.  When the feed value equals its death value, the
+creature "dies of starvation", and its thread halts.
